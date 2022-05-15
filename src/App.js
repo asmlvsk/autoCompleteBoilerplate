@@ -1,11 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import AutoComplete from './AutoComplete';
 
 const App = () => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const getUsers = await axios.get('https://jsonplaceholder.typicode.com/users');
+      setUser(getUsers.data);
+    };
+    getUsers();
+  }, []);
+
   return (
     <div className="App">
-      123
+      <AutoComplete array={user} />
     </div>
   );
-}
+};
 
 export default App;
